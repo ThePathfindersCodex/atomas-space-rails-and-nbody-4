@@ -1,0 +1,63 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://light.png" type="Texture2D" id=1]
+[ext_resource path="res://Star.gd" type="Script" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 50375, 40331.2 )
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 22.4232
+
+[sub_resource type="CircleShape2D" id=3]
+radius = 121.031
+
+[node name="Star" type="RigidBody2D" groups=["star"]]
+mode = 1
+mass = 50000.0
+max_contacts_reported = 5
+contact_monitor = true
+script = ExtResource( 2 )
+
+[node name="Gravity" type="Area2D" parent="."]
+space_override = 1
+gravity_point = true
+gravity_point_unit_distance = 1.0
+gravity_direction = Vector2( 0, 0 )
+gravity = 10000.0
+linear_damp = 0.0
+angular_damp = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Gravity"]
+visible = false
+position = Vector2( -1, 0 )
+shape = SubResource( 1 )
+
+[node name="Sprite2" type="Sprite2D" parent="."]
+modulate = Color( 1, 1, 1, 0.239216 )
+position = Vector2( 4, 2.5 )
+scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 1 )
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+scale = Vector2( 9.88503, 9.88503 )
+texture = ExtResource( 1 )
+texture_scale = 5.35
+energy = 1.65
+shadow_enabled = true
+shadow_color = Color( 0, 0, 0, 0.992157 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource( 2 )
+
+[node name="HeatZone" type="Area2D" parent="."]
+gravity_direction = Vector2( 0, 0 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HeatZone"]
+visible = false
+modulate = Color( 1, 1, 1, 0.211765 )
+shape = SubResource( 3 )
+
+[connection signal="body_entered" from="HeatZone" to="." method="_on_HeatZone_body_entered"]
+[connection signal="body_exited" from="HeatZone" to="." method="_on_HeatZone_body_exited"]

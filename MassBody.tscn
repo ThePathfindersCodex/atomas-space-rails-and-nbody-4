@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://bo7kldxl4xol0"]
+
+[ext_resource type="Texture2D" uid="uid://65tvstyiklox" path="res://parallax-space-big-planet.png" id="1"]
+[ext_resource type="Script" path="res://MassBody.gd" id="2"]
+[ext_resource type="Script" path="res://Ellipse.gd" id="3"]
+
+[sub_resource type="OccluderPolygon2D" id="1"]
+cull_mode = 1
+polygon = PackedVector2Array(-15.751, -41.5685, 4.90848, -45.2766, 23.4491, -38.3901, 37.2221, -25.6765, 44.1086, -3.42784, 41.4599, 16.7019, 32.4545, 32.0641, 17.0923, 42.129, -4.62671, 44.248, -22.1078, 39.4804, -35.3511, 25.7074, -43.2971, 7.69652, -42.2376, -14.0225, -30.5835, -30.9739)
+
+[node name="MassBody" type="Node2D" groups=["massive"]]
+script = ExtResource("2")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -1
+texture = ExtResource("1")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("1")
+
+[node name="Ellipse" type="Node2D" parent="."]
+script = ExtResource("3")
+semiMajorAxis = 1.0
